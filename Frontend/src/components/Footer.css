@@ -1,0 +1,19 @@
+.footer {
+    background-color: #4A90E2;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+.footer img{
+    width: 30px;
+    margin-right: 7px;
+    margin-left: 7px;
+    transition: transform 0.3s ease;
+}
+
+.footer img:hover{
+    transform:scale(1.1);
+}
+
