@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 import profileIcon from "../assets/profile.png"; // use your profile image
 
 import "./Navbar.css"; // CSS for styling
