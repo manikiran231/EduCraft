@@ -1,0 +1,214 @@
+/* Container for the entire navbar */
+.navbar-container {
+    width: 100%;
+    background-color: #4A90E2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* Hamburger menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    
+}
+
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+#logo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Main navbar list */
+.navbar {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+    flex: 1;
+    justify-content: flex-start; /* Align navbar items to the left */
+}
+
+/* Logo list item - stays on the left */
+.navbar li.logo {
+    margin-right: auto; /* Ensures logo stays on the far left */
+}
+
+/* Logo image */
+.navbar li.logo img {
+    height: 35px;
+}
+
+/* Other nav items */
+.navbar li {
+    margin: 0;
+}
+
+/* Links */
+.navbar a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #FFD700;
+    text-decoration: wavy;
+}
+
+/* Profile icon */
+.profile {
+    position: relative;
+    cursor: pointer;
+    margin-left: 5rem;
+}
+
+.profile-icon {
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 999;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background: #f0f0f0;
+    color: #4A90E2;
+}
+
+/* ======================== Responsive ======================== */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        z-index: 1001;
+    }
+
+    .navbar {
+        display: none;
+        flex-direction: column;
+        background-color: #4A90E2;
+        width: 100%;
+        padding: 10px 0;
+        align-items: center;
+    }
+
+    .navbar.active {
+        display: flex;
+    }
+
+    .navbar li.logo {
+        order: -1;
+        margin: 0 auto 10px auto;
+    }
+
+    .dropdown-menu {
+        position: static;
+        background-color: white;
+        width: 90%;
+        margin-top: 10px;
+    }
+
+    .dropdown-menu a {
+        color: #4A90E2;
+    }
+}
+
+/* Logout Button */
+.logout-button {
+    background: red;
+    border: none;
+    color: #ffffff;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    font: inherit;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.logout-button:hover {
+    background-color: #ff0000c7;
+}
+
+/* Login Button */
+.login-button {
+    padding: 8px 16px;
+    background-color: #FFD700;
+    color: #161616;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #9accc5;
+}
+
+/* Profile or Login Button */
+.profile, .login-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto;
+    margin-left: 20px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
