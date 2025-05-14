@@ -1,0 +1,105 @@
+/* Root Reset (inherits from your global styles) */
+.update-profile-container {
+    background-color: #ffffff;
+    padding: 50px 20px;
+    max-width: 700px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.update-profile-container h2 {
+    text-align: center;
+    font-size: 32px;
+    color: #1b9bbb;
+    margin-bottom: 20px;
+}
+
+.update-profile-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-profile-container label {
+    font-size: 17px;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.update-profile-container input,
+.update-profile-container select,
+.update-profile-container textarea {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+    margin-bottom: 18px;
+    width: 100%;
+}
+
+.update-profile-container input:focus,
+.update-profile-container select:focus,
+.update-profile-container textarea:focus {
+    border-color: #1b9bbb;
+    outline: none;
+}
+
+/* Resume Upload */
+.resume-upload {
+    margin-top: 10px;
+}
+
+.resume-upload label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #444;
+}
+
+.resume-upload input[type="file"] {
+    background-color: #f5f5f5;
+    padding: 8px;
+    border: 1px dashed #aaa;
+    cursor: pointer;
+}
+
+/* Submit Button */
+.update-profile-container button[type="submit"] {
+    background-color: #4A90E2;
+    color: #fff;
+    padding: 14px 0;
+    font-size: 17px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.update-profile-container button:hover {
+    background-color: #FFA500;
+}
+
+/* Success/Error Message */
+.update-profile-container p {
+    text-align: center;
+    margin-top: 10px;
+    color: #1b9bbb;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .update-profile-container {
+        padding: 30px 15px;
+    }
+
+    .update-profile-container h2 {
+        font-size: 26px;
+    }
+
+    .update-profile-container button {
+        font-size: 16px;
+    }
+}

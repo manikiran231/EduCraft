@@ -1,45 +1,42 @@
-import { useState } from 'react'
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
-import './App.css'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Courses from './pages/Courses';
-import Contact from './pages/Contact';
-import About from './pages/About';
-import Home from './pages/Home';
-import Login from './pages/login';
-import Signup from './pages/Signup';
-import Profile from './pages/Profile';
-import Logout from './pages/Logout';
-import ProtectedRoute from './pages/ProtectedRoute';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+import Courses from './pages/Courses/Courses';
+import Contact from './pages/Contact/Contact';
+import About from './pages/About/About';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/login';
+import Signup from './pages/Signup/Signup';
+import Profile from './pages/Profile/Profile';
+import UpdateProfile from './pages/UpdateProfile/UpdateProfile';
+import CourseCard from './pages/Courses/CourseCard/CourseCard';
+import NotFound from './pages/NotFound/NotFound';
+
 function App() {
-
   return (
-    <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Signup />} />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+    <BrowserRouter>
+      <Navbar />
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:id" element={<CourseCard />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<UpdateProfile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <ToastContainer position="top-right" autoClose={3000} />
 
-    </>
-  )
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
