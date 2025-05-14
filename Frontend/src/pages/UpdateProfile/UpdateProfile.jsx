@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'; // 👈 Import Toastify
-import './updateProfile.css';
+import './UpdateProfile.css';
 
 const UpdateProfile = () => {
   const [form, setForm] = useState({
