@@ -22,11 +22,12 @@ function Navbar() {
   const toggleNavbar = () => setNavbarVisible(!navbarVisible);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-    setUser(null);
-    navigate("/login");
-  };
+  localStorage.removeItem("token"); // ✅ match the login key
+  localStorage.removeItem("user");
+  setUser(null);
+  navigate("/login");
+};
+
 
   return (
     <div className="navbar-container" onClick={closeDropdown}>

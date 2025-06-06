@@ -1,62 +1,95 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify'; // 👈 Import Toastify
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './login.css';
 
 const Login = () => {
-    const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false); // 👈 New state
 
-    const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-            toast.success(res.data.msg); // 👈 Show success toast
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            window.location.href = "/"; // Redirect to homepage
-        } catch (err) {
-            toast.error(err.response?.data?.msg || "Login failed"); // 👈 Show error toast
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      toast.success(res.data.msg);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      if (rememberMe) {
+        localStorage.setItem("rememberMe", "true");
+      }
+      window.location.href = "/";
+    } catch (err) {
+      toast.error(err.response?.data?.msg || "Login failed");
+    }
+  };
 
-    return (
-        <>
-            <div className="login-container">
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <h2>Welcome Back</h2>
-                    <p>Please login to your account</p>
+  return (
+    <>
+      <div className="login-container">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h2>Welcome Back</h2>
+          <p>Please login to your account</p>
 
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        onChange={handleChange}
-                        required
-                    />
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            onChange={handleChange}
+            required
+          />
 
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        onChange={handleChange}
-                        required
-                    />
+          <label htmlFor="password">Password</label>
+          <div style={{ position: 'relative' }}>
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              onChange={handleChange}
+              required
+              style={{ paddingRight: '30px' }}
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: 8,
+                top: '40%',
+                transform: 'translateY(-50%)',
+                cursor: 'pointer',
+                userSelect: 'none',
+                fontSize: '18px',
+                color: '#555'
+              }}
+              title={showPassword ? "Hide Password" : "Show Password"}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          </div>
 
-                    <button type="submit">Login</button>
+          <div className="extra-options" style={{ display: 'flex',flexDirection:"row",justifyContent:'center', alignItems: 'center', margin: '10px' }}>
+            Forgot Password..? 
+            <a href="/forgot-password" className="forgot-password-link text-blue-400 " style={{marginLeft:"10px"}}>Click Here</a>
+          </div>
 
-                    <div className="register-link">
-                        Don't have an account? <a href="/register">Register here</a>
-                    </div>
-                </form>
-            </div>
-        </>
-    );
+          <button type="submit">Login</button>
+
+          <div className="register-link">
+            Don't have an account? <a href="/register">Register here</a>
+          </div>
+        </form>
+      </div>
+
+      <ToastContainer />
+    </>
+  );
 };
 
 export default Login;

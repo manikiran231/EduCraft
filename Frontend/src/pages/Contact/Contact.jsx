@@ -1,18 +1,19 @@
 import React, { useRef, useState } from "react";
 import emailjs from "emailjs-com";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";  // Import ToastContainer
+import "react-toastify/dist/ReactToastify.css";          // Import styles
 import LinkedIn from "../../assets/Linkedin.png";
 import Instagram from "../../assets/Insta.png";
 import "./Contact.css";
 
 function Contact() {
   const form = useRef();
-  const [isLoading, setIsLoading] = useState(false);  // State for loading
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);  // Start loading
+    setIsLoading(true);
 
     emailjs
       .sendForm(
@@ -32,8 +33,8 @@ function Contact() {
         }
       )
       .finally(() => {
-        setIsLoading(false);  // Stop loading
-        e.target.reset();  // Reset the form after toast
+        setIsLoading(false);
+        e.target.reset();
       });
   };
 
@@ -79,6 +80,19 @@ function Contact() {
           </a>
         </div>
       </section>
+
+      {/* Add ToastContainer to render toasts */}
+      <ToastContainer 
+        position="top-right" 
+        autoClose={3000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick 
+        rtl={false} 
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover 
+      />
     </>
   );
 }

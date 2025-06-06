@@ -1,0 +1,14 @@
+.loading-card {
+  width: 100%;
+  max-width: 320px;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loading-image {
+  height: 180px;
+  background: #e0e0e0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

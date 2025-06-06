@@ -14,7 +14,13 @@ import Profile from './pages/Profile/Profile';
 import UpdateProfile from './pages/UpdateProfile/UpdateProfile';
 import CourseCard from './pages/Courses/CourseCard/CourseCard';
 import NotFound from './pages/NotFound/NotFound';
-
+import Course from './pages/Course/Course';
+import Payment from './pages/Payment/Payment';
+import MyCourses from './pages/MyCourses/MyCourses';
+import ResetPassword from './pages/Reset/ResetPassword';
+import Forgot from './pages/Forgot/Forgot';
+import RegCourse from './pages/MyCourses/Course/RegCourse';
+import Leader from './pages/LeaderBoard/Leader';
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +36,13 @@ function App() {
         <Route path="/register" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<UpdateProfile />} />
+        <Route path="/course/:id" element={<Course />} />
+        <Route path="/payment/:id" element={<Payment />} />
+        <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/reset-password/:email" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<Forgot />} />
+        <Route path="/my-courses/course/:courseId" element={<RegCourse />} />
+        <Route path="/leaderboard" element={<Leader />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />

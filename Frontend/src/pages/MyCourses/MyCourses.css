@@ -1,0 +1,33 @@
+.my-courses {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.my-courses h2 {
+  color: #4A90E2;
+  margin-bottom: 1rem;
+}
+
+.my-courses ul {
+  list-style: none;
+  padding: 0;
+}
+
+.my-courses li {
+  background-color: #f0f8ff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.my-courses a {
+  text-decoration: none;
+  color: #1b9bbb;
+}
+
+.my-courses a:hover {
+  text-decoration: underline;
+}
