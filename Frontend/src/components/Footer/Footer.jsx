@@ -13,8 +13,8 @@ function Footer() {
           <ul>
             <li><Link to="/about">About Us</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/privacy">Privacy Policy</Link></li>
-            <li><Link to="/terms">Terms of Service</Link></li>
+            <li><Link to="/about">Privacy Policy</Link></li>
+            <li><Link to="/about">Terms of Service</Link></li>
           </ul>
         </div>
 
@@ -22,32 +22,32 @@ function Footer() {
           <h3>Services</h3>
           <ul>
             <li><Link to="/courses">Interactive Lessons</Link></li>
-            <li><Link to="/games">Educational Games</Link></li>
-            <li><Link to="/projects">Creative Projects</Link></li>
-            <li><Link to="/resources">Parent Resources</Link></li>
+            <li><Link to="/courses">Educational Games</Link></li>
+            <li><Link to="/courses">Creative Projects</Link></li>
+            <li><Link to="/courses">Parent Resources</Link></li>
           </ul>
         </div>
 
         <div className="footer-column">
           <h3>Learning</h3>
           <ul>
-            <li><Link to="/tracking">Progress Tracking</Link></li>
-            <li><Link to="/live-classes">Live Classes</Link></li>
-            <li><Link to="/science">Science Experiments</Link></li>
-            <li><Link to="/math">Mathematics</Link></li>
+            <li><Link to="/about">Progress Tracking</Link></li>
+            <li><Link to="/courses">Live Classes</Link></li>
+            <li><Link to="/courses">Science Experiments</Link></li>
+            <li><Link to="/courses">Mathematics</Link></li>
           </ul>
         </div>
         <div className="footer-column">
           <h3>Connect</h3>
           <ul>
-            <li><Link to="/community">Community</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/support">Support</Link></li>
+            <li><Link to="/">Community</Link></li>
+            <li><Link to="/">Blog</Link></li>
+            <li><Link to="/contact">Support</Link></li>
           </ul>
         </div>
     </div>
       <div className="footer-bottom">
-        <p>&copy; 2024 EduCraft @ Manikiran. All Rights Reserved.</p>
+        <p>&copy; 2024 EduCraft @ <a href="https://www.linkedin.com/in/tamminaina-manikiran-85b03726a/" style={{color:"yellow"}}>Manikiran</a>. All Rights Reserved.</p>
       </div>
     </footer>
   );

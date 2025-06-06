@@ -9,7 +9,7 @@ const CourseCard = ({ course }) => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      navigate(`/course/${course.id}`);
+      navigate(`/my-courses/course/${course._id}`);
     } else {
       navigate('/login');
     }

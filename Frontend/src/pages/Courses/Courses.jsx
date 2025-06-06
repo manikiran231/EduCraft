@@ -1,99 +1,150 @@
-import React from "react";
-import workout from "../../assets/workout.png";
-import recipes from "../../assets/recipes.png";
-import languageLearning from "../../assets/language-learning.jpg";
-import mental from "../../assets/mental.png";
-import virtualTrips from "../../assets/virtual-trips.jpg";
-import musicArts from "../../assets/music-arts.jpg";
-import community from "../../assets/community.png";
-import codingForKids from "../../assets/coding-for-kids.jpg";
-import "./Courses.css";
-function Courses() {
-    return (
-        <>
-            <section className="services">
-                <h2>Our Services</h2>
-                <p className="p">At EduCraft, we offer a diverse array of innovative educational services designed to make learning engaging
-                    and accessible for every child. Our mission is to inspire a lifelong love of learning by combining
-                    high-quality interactive lessons, creative projects, and more. We are particularly
-                    dedicated to fostering educational excellence through interactive and immersive experiences, tailored to
-                    meet the unique needs of each learner, ensuring education is not only effective but also enjoyable. 🚀📚✨
-                </p>
-                <div className="service-card">
-                    <img src={workout} alt="Interactive Lessons" />
-                    <div>
-                        <h3>Interactive Lessons</h3>
-                        <p>Engaging, high-quality video lessons designed to captivate children’s attention. These lessons
-                            incorporate interactive quizzes and activities to reinforce learning and make education enjoyable
-                            and effective.</p>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <img src={recipes} alt="Virtual Educational Games" />
-                    <div>
-                        <h3>Virtual Educational Games</h3>
-                        <p>Fun and educational games that cover various subjects such as math, science, and language arts. These
-                            games are designed to enhance critical thinking, problem-solving skills, and knowledge retention
-                            through play.</p>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <img src={languageLearning} alt="Language Learning" />
-                    <div>
-                        <h3>Language Learning</h3>
-                        <p>Courses and activities designed to help children master new languages. This service includes
-                            interactive lessons, cultural immersion experiences, and fun activities that make learning a new
-                            language enjoyable and effective.</p>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <img src={mental} alt="Creative Projects" />
-                    <div>
-                        <h3>Creative Projects</h3>
-                        <p>Hands-on arts, crafts, and science experiments that stimulate creativity and innovation. Each project
-                            comes with step-by-step guides to help children create and learn, encouraging them to explore and
-                            express their creativity.</p>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <img src={virtualTrips} alt="Virtual Field Trips" />
-                    <div>
-                        <h3>Virtual Field Trips</h3>
-                        <p>Explore the world from the comfort of home with interactive virtual tours and cultural experiences.
-                            These trips offer a glimpse into different cultures, histories, and sciences, broadening children’s
-                            horizons and knowledge.</p>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <img src={musicArts} alt="Music and Arts" />
-                    <div>
-                        <h3>Music and Arts</h3>
-                        <p>Music lessons and art classes that nurture artistic talents. Children can explore different
-                            instruments, learn to read music, and create beautiful artworks, fostering their creativity and
-                            appreciation for the arts.</p>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <img src={community} alt="Parent Resources" />
-                    <div>
-                        <h3>Parent Resources</h3>
-                        <p>Comprehensive tips and tools to help parents support their child's learning journey. This service
-                            includes guides on effective learning strategies, educational resources, and ways to foster a
-                            positive learning environment at home.</p>
-                    </div>
-                </div>
+import React, { useState, useEffect } from 'react';
+import CourseCard from './CourseCard/CourseCard';
+import LoadingCard from './LoadingCard/LoadingCard';
+import './Courses.css';
 
-                <div className="service-card">
-                    <img src={codingForKids} alt="Coding for Kids" />
-                    <div>
-                        <h3>Coding for Kids</h3>
-                        <p>Learn programming through engaging and interactive lessons. This service includes real-world projects
-                            where children can create their own apps, games, and websites, developing essential coding skills in
-                            a fun way.</p>
-                    </div>
-                </div>
-            </section>
+const Courses = () => {
+  const [courses, setCourses] = useState([]);
+  const [search, setSearch] = useState('');
+  const [userType, setUserType] = useState('student');
+  const [sortBy, setSortBy] = useState('relevance');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const coursesPerPage = 9;
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/courses');
+        if (!res.ok) throw new Error('Failed to fetch courses');
+        const data = await res.json();
+        setCourses(data);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  const getFilteredCourses = () => {
+    let filtered = courses.filter((course) =>
+      (course.course_title || '').toLowerCase().includes(search.toLowerCase()) &&
+      course.target_audience === userType
+    );
+
+    if (sortBy === 'rating') {
+      filtered.sort((a, b) => b.difficulty_rating - a.difficulty_rating);
+    } else if (sortBy === 'popularity') {
+      filtered.sort((a, b) => b.popularity_score - a.popularity_score);
+    }
+
+    return filtered;
+  };
+
+  const filteredCourses = getFilteredCourses();
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+  const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+  const welcomeMessage =
+    userType === 'parent'
+      ? "Hey Parent! Here are some featured courses your kids might enjoy – like math tutorials, other subjects, and fun games on your wish."
+      : "Hey Student! Welcome – choose your courses like Web Dev, HTML, CSS, Python, C, C++, and more!";
+
+  return (
+    <div className="container">
+      <h2 className="title">Our Courses</h2>
+      <p className="description">
+        Explore our wide range of courses tailored for students and parents.
+        Use the filters to find the perfect course for you!
+      </p>
+
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Search courses..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
+        <select value={userType} onChange={(e) => {
+          setUserType(e.target.value);
+          setCurrentPage(1);
+        }}>
+          <option value="student">Student</option>
+          <option value="parent">Parent</option>
+        </select>
+        <select value={sortBy} onChange={(e) => {
+          setSortBy(e.target.value);
+          setCurrentPage(1);
+        }}>
+          <option value="relevance">Relevance</option>
+          <option value="popularity">Popularity</option>
+          <option value="rating">Difficulty</option>
+        </select>
+      </div>
+
+      <h2 className="welcome">{welcomeMessage}</h2>
+
+      {loading ? (
+        <div className="course-grid">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <LoadingCard key={i} />
+          ))}
+        </div>
+      ) : (
+
+        <>
+          <div className="course-grid">
+            {currentCourses.length > 0 ? (
+              currentCourses.map((course) => (
+                <CourseCard key={course._id} course={course} />
+              ))
+            ) : (
+              <p>No courses found matching your criteria.</p>
+            )}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                ⬅ Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, idx) => (
+                <button
+                  key={idx + 1}
+                  onClick={() => handlePageChange(idx + 1)}
+                  className={currentPage === idx + 1 ? 'active' : ''}
+                >
+                  {idx + 1}
+                </button>
+              ))}
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next ➡
+              </button>
+            </div>
+          )}
         </>
-    )
-}
+      )}
+    </div>
+  );
+};
+
 export default Courses;

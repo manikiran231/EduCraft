@@ -1,0 +1,45 @@
+.leaderboard-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+.leaderboard-title {
+  text-align: center;
+  font-size: 36px;
+  color: #4A90E2;
+  margin-bottom: 30px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.leaderboard-table th {
+  background-color: #4A90E2;
+  color: white;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.leaderboard-table tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.leaderboard-table td:first-child {
+  font-weight: bold;
+  color: #FFD700;
+}
