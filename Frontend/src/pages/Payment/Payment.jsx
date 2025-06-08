@@ -142,22 +142,29 @@ const handleSubmit = async (e) => {
   }
 
   return (
-    <div className="payment-page">
-      <ToastContainer position="top-right" autoClose={3000} />
-      <h2>Checkout - {course.course_title}</h2>
+  <div className="payment-page">
+    <ToastContainer position="top-right" autoClose={3000} />
+    <h2>Checkout - {course.course_title}</h2>
 
-      <div className="payment-summary" aria-label="Course summary">
-        <p><strong>Instructor:</strong> {course.instructor_name}</p>
-        <p>
-          <strong>Price:</strong> ₹{Math.floor(course.price * 0.8)}{' '}
-          <span className="original-price" aria-label={`Original price ₹${course.price}`}>₹{course.price}</span>
-        </p>
-        <p><strong>Duration:</strong> {course.course_duration} mins</p>
-      </div>
+    <div className="payment-summary" aria-label="Course summary">
+      <p><strong>Instructor:</strong> {course.instructor_name}</p>
+      <p>
+        <strong>Price:</strong> ₹{Math.floor(course.price * 0.8)}{' '}
+        <span className="original-price" aria-label={`Original price ₹${course.price}`}>₹{course.price}</span>
+      </p>
+      <p><strong>Duration:</strong> {course.course_duration} mins</p>
+    </div>
 
-      {submitted ? (
-        <p className="success-msg" role="alert" aria-live="assertive">Processing payment...</p>
-      ) : (
+    {submitted ? (
+      <p className="success-msg" role="alert" aria-live="assertive">Processing payment...</p>
+    ) : (
+      <>
+        <div className="free-service-notice">
+          <p style={{ backgroundColor: '#fff3cd', padding: '10px', borderRadius: '6px', border: '1px solid #ffeeba', color: '#856404' }}>
+            ⚠️ <strong>Note:</strong> This platform is currently running as a <strong>free service</strong>. You can use any dummy credentials to proceed with the simulation.
+          </p>
+        </div>
+
         <form className="payment-form" onSubmit={handleSubmit} noValidate>
           <label htmlFor="name">
             Name on Card
@@ -238,9 +245,11 @@ const handleSubmit = async (e) => {
             Pay ₹{Math.floor(course.price * 0.8)}
           </button>
         </form>
-      )}
-    </div>
-  );
+      </>
+    )}
+  </div>
+);
+
 };
 
 export default Payment;

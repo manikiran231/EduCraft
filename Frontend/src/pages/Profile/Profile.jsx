@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ProfileLoading from "./ProfileLoading";
 import {
   PieChart,
   Pie,
@@ -26,7 +27,7 @@ const averageProgress = (progressArray) => {
 };
 
 const Profile = () => {
-  const [user, setUser ] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showCharts, setShowCharts] = useState(true); // State to toggle charts visibility
@@ -50,7 +51,7 @@ const Profile = () => {
 
         const data = response.data;
 
-        setUser ({
+        setUser({
           name: data.name,
           email: data.email,
           joined: new Date(data.joinedAt).toLocaleDateString("en-US", {
@@ -61,8 +62,8 @@ const Profile = () => {
           bio: "Aspiring Full Stack Developer | React • MongoDB • NodeJS",
           progress: {
             coursesCompleted: data.enrolledCourses?.length || 0,
-            challengesSolved: 120,
-            projectsBuilt: 7,
+            challengesSolved:0,
+            projectsBuilt: 0,
           },
           journeyProgress: averageProgress(data.progress),
           progressDetails: data.progress || [],
@@ -79,7 +80,24 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  // Custom function to return motivational message based on average progress
+  const getMotivationalMessage = (progress) => {
+    if (progress === 0) {
+      return "Let's get started! Your learning journey awaits.";
+    } else if (progress > 0 && progress <= 30) {
+      return "Keep pushing! Every small step counts.";
+    } else if (progress > 30 && progress <= 60) {
+      return "Great progress! You're getting there.";
+    } else if (progress > 60 && progress < 100) {
+      return "Awesome job! Almost at the finish line!";
+    } else if (progress === 100) {
+      return "Congratulations! You've completed your journey!";
+    } else {
+      return "Keep up the great work!";
+    }
+  };
+
+  if (loading) return <ProfileLoading />;
   if (error) return <div className="error">{error}</div>;
 
   // Prepare chart data
@@ -90,19 +108,18 @@ const Profile = () => {
 
   const barData = pieData;
 
-  // Motivational message based on average progress
-  const motivationalMessage = user.journeyProgress < 50 
-    ? "Keep pushing! You're doing great, and every step counts!" 
-    : "Awesome job! You're on the right track!";
-
   return (
     <div className="profile-container">
       <h1 className="dashboard-title">User Dashboard</h1>
-<p className="welcome-message">Welcome back, {user.name}! Let’s track your learning journey 🚀</p>
+      <p className="welcome-message">
+        Welcome back, {user.name}! Let’s track your learning journey 🚀
+      </p>
 
       <div className="profile-header">
         <img
-          src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || "User ")}`}
+          src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+            user.name || "User "
+          )}`}
           alt="User  Avatar"
           className="avatar"
         />
@@ -133,7 +150,7 @@ const Profile = () => {
 
       <div className="progress-section">
         <h2>Journey Progress</h2>
-        <p className="motivational-message">{motivationalMessage}</p>
+        <p className="motivational-message">{getMotivationalMessage(user.journeyProgress)}</p>
 
         <button className="toggle-charts" onClick={() => setShowCharts(!showCharts)}>
           {showCharts ? "Hide Charts" : "Show Charts"}
@@ -157,10 +174,7 @@ const Profile = () => {
                     animationDuration={500}
                   >
                     {pieData.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <ReTooltip />

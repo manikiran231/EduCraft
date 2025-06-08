@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8fa;
+    background-color: #fffffffa;
     margin: 0;
     padding: 0;
     color: #333;
@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f2f9fc;
+    background-color: #f4f4f4;
 }
 
 .login-form {
@@ -74,7 +74,7 @@ body {
     margin-top: 15px;
 }
 
-.register-link a {
+a {
     color: #4A90E2;
     text-decoration: none;
 }

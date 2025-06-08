@@ -6,30 +6,9 @@ const nodemailer = require('nodemailer');
 const User = require('../models/User');
 const Course = require('../models/Course');
 const Enrollment = require('../models/Enrollment');
-require('dotenv').config();
-
+const authenticateToken=require('../middlewares/auth')
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// =======================
-// Middleware to Verify JWT Token
-// =======================
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ message: 'No token provided' });
-
-  const token = authHeader.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    return res.status(403).json({ message: 'Invalid or expired token' });
-  }
-}
-
-// =======================
-// Utility Functions
-// =======================
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
@@ -53,9 +32,6 @@ async function sendOTPEmail(email, otp) {
   await transporter.sendMail(mailOptions);
 }
 
-// =======================
-// Auth Routes
-// =======================
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -95,9 +71,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// =======================
-// Password Reset Routes
-// =======================
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
   try {
@@ -143,9 +116,6 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
-// =======================
-// Get User Profile
-// =======================
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -168,21 +138,33 @@ router.get('/profile', authenticateToken, async (req, res) => {
   }
 });
 
-// =======================
-// Enroll in Course
-// =======================
 router.post('/enroll/:courseId', authenticateToken, async (req, res) => {
   try {
-    const userId = req.user.id;
-    const courseIdNumber = Number(req.params.courseId);
+    const userId = req.user.id;  // Extracted by authenticateToken middleware
+    const courseIdNumber = Number(req.params.courseId);  // Ensure it's a number
 
+    // Find the course by numeric ID (not MongoDB _id)
     const course = await Course.findOne({ id: courseIdNumber });
     if (!course) return res.status(404).json({ message: 'Course not found' });
 
-    const alreadyEnrolled = await Enrollment.findOne({ userId, courseId: course._id });
-    if (alreadyEnrolled) return res.status(200).json({ message: 'Already enrolled' });
+    // Check if already enrolled
+    const alreadyEnrolled = await Enrollment.findOne({
+      userId: userId,
+      courseId: course._id,
+    });
 
-    await Enrollment.create({ userId, courseId: course._id });
+    if (alreadyEnrolled) {
+      return res.status(200).json({ message: 'Already enrolled' });
+    }
+
+    // Enroll the user
+    const newEnrollment = new Enrollment({
+      userId: userId,
+      courseId: course._id,
+      enrolledAt: new Date(),
+    });
+
+    await newEnrollment.save();
 
     res.status(200).json({ message: 'Enrolled successfully' });
   } catch (err) {
@@ -191,13 +173,9 @@ router.post('/enroll/:courseId', authenticateToken, async (req, res) => {
   }
 });
 
-// =======================
-// Get Enrollments for Authenticated User
-// =======================
 router.get('/enrollments', authenticateToken, async (req, res) => {
   try {
     const enrollments = await Enrollment.find({ userId: req.user.id }).populate('courseId');
-    console.log(enrollments);
     res.json(enrollments);
   } catch (err) {
     console.error('Error fetching enrollments:', err);
@@ -205,11 +183,6 @@ router.get('/enrollments', authenticateToken, async (req, res) => {
   }
 });
 
-
-
-// =======================
-// Get Course by ID
-// =======================
 router.get('/courses/:courseId', authenticateToken, async (req, res) => {
   try {
     const courseId = Number(req.params.courseId);

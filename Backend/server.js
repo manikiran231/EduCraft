@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 // Your other routes (auth, personalDetails, Enrollments)
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/details', require('./routes/personalDetails'));
-app.use('/api/enrollments', require('./routes/Enrollments'));
+app.use('/api/enrollments', require('./routes/enrollments'));
 app.use('/api/courses',require("./routes/courses"))
 // Server Start
 const PORT = process.env.PORT || 5000;

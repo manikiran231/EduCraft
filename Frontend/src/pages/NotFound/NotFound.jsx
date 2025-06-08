@@ -11,7 +11,7 @@ const NotFound = () => {
       <p className="notfound-message">Sorry, the page you're looking for doesn't exist.</p>
       <img
         src="https://illustrations.popsy.co/gray/space.svg"
-        alt="These Pages are Under Construction"
+        alt="Please come back later"
         className="notfound-image"
       />
       <button className="notfound-button" onClick={() => navigate('/')}>

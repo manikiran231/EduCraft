@@ -1,4 +1,3 @@
-/* General Styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f8f8fa;
@@ -7,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* Section Containers */
 .about, .ourgoals, .ourvalues, .join {
     padding: 40px 20px;
     text-align: center;
@@ -20,7 +18,6 @@ body {
     margin-top: 0;
 }
 
-/* Paragraphs */
 .about p, .ourvalues p, .ourgoals p, .join p {
     font-size: 18px;
     max-width: 900px;
@@ -29,7 +26,6 @@ body {
     color: #666;
 }
 
-/* Goal Cards */
 .ourgoals .card {
     display: inline-table;
     width: 40%;
@@ -52,14 +48,12 @@ body {
     color: #555;
 }
 
-/* Card Hover Effect */
 .ourgoals .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-/* Responsive */
 @media screen and (max-width: 768px) {
     .ourgoals .card {
         width: 90%;

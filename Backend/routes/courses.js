@@ -65,7 +65,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/batch', authenticateToken, async (req, res) => {
-  console.log('🔥 /api/courses/batch hit:', req.body);
   const { courseIds } = req.body;
   if (!Array.isArray(courseIds)) {
     return res.status(400).json({ message: 'courseIds must be an array' });

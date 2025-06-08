@@ -39,3 +39,102 @@
 .progress-section input[type='range'] {
   width: 100%;
 }
+
+/* Skeleton Loader Styles */
+.loading .shimmer {
+  background: linear-gradient(90deg, #eeeeee 25%, #dddddd 50%, #eeeeee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 32px;
+}
+
+.skeleton-text {
+  width: 80%;
+  height: 16px;
+}
+
+.skeleton-text.short {
+  width: 40%;
+}
+
+.skeleton-video {
+  width: 100%;
+  height: 300px;
+}
+
+.skeleton-progress {
+  width: 50%;
+  height: 12px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.course-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.course-card {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.course-card:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.video-wrapper {
+  margin: 1.5rem 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.video-wrapper iframe,
+.video-wrapper video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.progress-section {
+  margin-top: 2rem;
+}
+
+.progress-section input[type='range'] {
+  width: 100%;
+  margin-top: 0.5rem;
+  accent-color: #007bff;
+  transition: all 0.3s ease;
+}
+
+.progress-feedback {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+.progress-feedback span {
+  font-weight: 600;
+}

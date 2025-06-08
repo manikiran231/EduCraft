@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify'; // 👈 Import toast
 import './Course.css';
 
 const isYouTubeUrl = (url) =>
@@ -24,13 +25,11 @@ const RegCourse = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  // Fetch course and progress
   useEffect(() => {
     const fetchCourseAndProgress = async () => {
       try {
         const token = localStorage.getItem('token');
 
-        // Fetch course details
         const courseRes = await fetch(`http://localhost:5000/api/courses/${courseId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -38,7 +37,6 @@ const RegCourse = () => {
         const courseData = await courseRes.json();
         setCourse(courseData);
 
-        // Fetch user progress (optional)
         const profileRes = await fetch(`http://localhost:5000/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -50,13 +48,13 @@ const RegCourse = () => {
           if (progressEntry) {
             setProgress(progressEntry.percentage);
           } else {
-            // fallback to localStorage
             const saved = localStorage.getItem(`progress-${courseId}`);
             setProgress(saved ? Number(saved) : 0);
           }
         }
       } catch (err) {
         console.error('Error fetching data:', err);
+        toast.error('Failed to fetch course data'); // 👈 Toast on error
       } finally {
         setLoading(false);
       }
@@ -65,7 +63,6 @@ const RegCourse = () => {
     fetchCourseAndProgress();
   }, [courseId]);
 
-  // Update progress in DB and localStorage
   const handleProgressChange = async (value) => {
     setProgress(value);
     localStorage.setItem(`progress-${courseId}`, value.toString());
@@ -81,15 +78,26 @@ const RegCourse = () => {
         body: JSON.stringify({ courseId: course._id, percentage: value }),
       });
 
-      if (!res.ok) {
-        console.error('Failed to update progress');
-      }
+      if (!res.ok) throw new Error('Failed to update progress');
+      toast.success('Program loaded successfully 🎯'); // ✅ Toast on success
     } catch (err) {
-      console.error('Error updating progress:', err);
+      console.error('Error Loading progress:', err);
+      toast.error('Could not Load Program'); // ❌ Toast on failure
     }
   };
 
-  if (loading) return <p>Loading course details...</p>;
+  if (loading) {
+    return (
+      <div className="course-detail-container loading">
+        <div className="skeleton-title shimmer"></div>
+        <div className="skeleton-text shimmer"></div>
+        <div className="skeleton-text shimmer short"></div>
+        <div className="skeleton-video shimmer"></div>
+        <div className="skeleton-progress shimmer"></div>
+      </div>
+    );
+  }
+
   if (!course) return <p>Course not found</p>;
 
   const videoUrl = course.video_url;
@@ -98,45 +106,56 @@ const RegCourse = () => {
 
   return (
     <div className="course-detail-container">
-      <h1 className="course-title">{course.course_title}</h1>
-      <p className="course-instructor">
-        <strong>Instructor:</strong> {course.instructor_name || 'TBA'}
-      </p>
-      <p className="course-description">{course.description}</p>
-
-      <div className="video-container">
-        {embedUrl ? (
-          <iframe
-            width="100%"
-            height="500"
-            src={embedUrl}
-            title="Course Video"
-            frameBorder="0"
-            allowFullScreen
-          />
-        ) : videoUrl ? (
-          <video width="100%" height="500" controls>
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          <p>No video available</p>
-        )}
+      <div className="course-header">
+        <h1 className="course-title">{course.course_title}</h1>
+        <p className="course-instructor">
+          <strong>Instructor:</strong> {course.instructor_name || 'TBA'}
+        </p>
       </div>
 
-      <div className="progress-section">
-        <label htmlFor="progressRange">
-          <strong>Track Your Progress:</strong>
-        </label>
-        <input
-          type="range"
-          id="progressRange"
-          min="0"
-          max="100"
-          value={progress}
-          onChange={(e) => handleProgressChange(Number(e.target.value))}
-        />
-        <p>{progress}% completed</p>
+      <div className="course-card">
+        <p className="course-description">{course.description}</p>
+
+        <div className="video-wrapper">
+          {embedUrl ? (
+            <iframe src={embedUrl} title="Course Video" allowFullScreen />
+          ) : videoUrl ? (
+            <video controls>
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <p>No video available</p>
+          )}
+        </div>
+
+        <div className="progress-section">
+          <label htmlFor="progressRange">
+            <strong>Track Your Progress</strong> 🚀
+          </label>
+          <input
+            type="range"
+            id="progressRange"
+            min="0"
+            max="100"
+            value={progress}
+            onChange={(e) => handleProgressChange(Number(e.target.value))}
+          />
+          <div className="progress-feedback">
+            <p>{progress}% completed</p>
+            <span>
+              {progress === 100
+                ? '🎉 Great job!'
+                : progress >= 75
+                ? '🔥 Almost there!'
+                : progress >= 50
+                ? '👍 Keep going!'
+                : progress >= 25
+                ? '📚 You’re getting there!'
+                : '💡 Just getting started!'}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

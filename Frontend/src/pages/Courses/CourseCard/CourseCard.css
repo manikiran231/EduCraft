@@ -1,4 +1,4 @@
-.course-card {
+.cours-card {
   border: 1px solid #ddd;
   padding: 16px;
   border-radius: 10px;
@@ -6,11 +6,11 @@
   transition: box-shadow 0.2s;
 }
 
-.course-card:hover {
+.cours-card:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.course-card h3 {
+.cours-card h3 {
   margin-top: 0;
   font-size: 1.25rem;
   color: #333;
@@ -22,7 +22,7 @@
   margin: 10px 0;
 }
 
-.course-meta p {
+.cours-meta p {
   font-size: 0.85rem;
   margin: 4px 0;
   color: #666;

@@ -1,0 +1,78 @@
+/* Profile loading container */
+.profile-card.loading {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Avatar skeleton */
+.avatar-skeleton {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+/* User info skeleton wrapper */
+.user-info-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Title and subtitle placeholders */
+.title-skeleton {
+  width: 50%;
+  height: 24px;
+  border-radius: 6px;
+}
+.subtitle-skeleton {
+  width: 40%;
+  height: 16px;
+  border-radius: 6px;
+}
+.bio-skeleton {
+  width: 70%;
+  height: 14px;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+/* Stats skeleton */
+.stats-skeleton {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+.stat-skeleton {
+  width: 30%;
+  height: 48px;
+  border-radius: 10px;
+}
+
+/* Progress section skeleton */
+.progress-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.progress-title-skeleton {
+  width: 40%;
+  height: 22px;
+  border-radius: 6px;
+  margin: 0 auto;
+}
+.progress-bar-skeleton {
+  width: 100%;
+  height: 14px;
+  border-radius: 10px;
+}
+
+/* Reuse shimmer animation from your existing skeleton */

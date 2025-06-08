@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Enrollment = require('../models/Enrollment');
-
+const authenticateToken=require('../middlewares/auth')
+const Course=require('../models/Course')
 // Check enrollment status
 router.get('/', async (req, res) => {
   const { userId, courseId } = req.query;
@@ -29,5 +30,22 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// GET /api/enrollments/is-enrolled/:courseId
+router.get('/is-enrolled/:courseId', authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  const courseIdNumber = Number(req.params.courseId);
+
+  const course = await Course.findOne({ id: courseIdNumber });
+  if (!course) return res.status(404).json({ message: 'Course not found' });
+
+  const enrolled = await Enrollment.findOne({
+    userId,
+    courseId: course._id,
+  });
+
+  res.json({ enrolled: !!enrolled });
+});
+
 
 module.exports = router;

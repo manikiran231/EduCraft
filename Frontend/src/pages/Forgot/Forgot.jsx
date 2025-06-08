@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // 👈 import Link
 import './Forgot.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +14,7 @@ function Forgot() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // start loading
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
       setMessage(response.data.message || 'Check your email for reset instructions.');
@@ -26,9 +26,10 @@ function Forgot() {
     } catch (err) {
       console.error('Forgot password error:', err);
       setMessage('');
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      setError(err.response?.data?.error || 'Please Check your email or try again later.');
+      toast.error("Invalid email, please try again.");
     } finally {
-      setLoading(false); // end loading
+      setLoading(false);
     }
   };
 
@@ -41,7 +42,7 @@ function Forgot() {
       <form onSubmit={handleSubmit}>
         {message && <p className="success">{message}</p>}
         {error && <p className="error">{error}</p>}
-        <label htmlFor="email" >Email</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -49,12 +50,21 @@ function Forgot() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           required
-          disabled={loading} // disable input while loading
+          disabled={loading}
         />
         <button type="submit" className="forgot-button" disabled={loading}>
           {loading ? "Sending..." : "Send Passcode"}
         </button>
       </form>
+
+      {/* 🔙 Back to Login link */}
+      <div className="back-to-login">
+        <p>
+          Remember your password?{" "}
+          <Link to="/login" style={{ color: "#1e90ff", fontWeight: "normal",paddingLeft:"2px"}}>Back to Login</Link>
+        </p>
+      </div>
+
       <ToastContainer />
     </div>
   );
