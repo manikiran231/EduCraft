@@ -71,4 +71,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
   }
-  
+  .back-to-login{
+    text-align: center;
+    padding-top: 10px;
+  }

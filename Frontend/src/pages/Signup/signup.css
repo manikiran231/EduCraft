@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f2f9fc;
+    background-color: #f4f4f4;
 }
 
 .signup-form {
@@ -81,4 +81,28 @@ body {
 
 .login-link a:hover {
     text-decoration: underline;
+}
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+
+.strength {
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.strength.weak {
+  color: red;
+}
+
+.strength.medium {
+  color: orange;
+}
+
+.strength.strong {
+  color: green;
 }

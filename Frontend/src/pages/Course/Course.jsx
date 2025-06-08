@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SimpleVideoPlayer from '../../components/SimpleVideoPlayer/SimpleVideoPlayer';
+import CourseLoader from './CourseLoader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Course.css';
 
-const isYouTubeUrl = (url) => {
-  return url.includes('youtu.be') || url.includes('youtube.com/watch?v=');
-};
+const isYouTubeUrl = (url) =>
+  url.includes('youtu.be') || url.includes('youtube.com/watch?v=');
 
 const getYouTubeEmbedUrl = (url) => {
   if (!url) return '';
@@ -51,33 +51,54 @@ const Course = () => {
     };
 
     fetchCourse();
-
-    const isEnrolled = localStorage.getItem(`enrolled-${id}`) === 'true';
-    setEnrolled(isEnrolled);
   }, [id, navigate]);
+
+  useEffect(() => {
+    const checkEnrollment = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/enrollments/is-enrolled/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok && data.enrolled) {
+          setEnrolled(true);
+        }
+      } catch (err) {
+        console.error('Enrollment check failed', err);
+      }
+    };
+
+    checkEnrollment();
+  }, [id]);
+
+  const handleEnroll = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Please log in to enroll.');
+      return;
+    }
+
+    navigate(`/payment/${id}`);
+  };
+
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
+    if (!enrolled) {
+      toast.warning('Please enroll in the course before submitting a review.');
+      return;
+    }
+
     console.log('Review Submitted:', { rating, review });
     toast.info('Thanks for your feedback!');
     setRating('');
     setReview('');
   };
 
-  const handleEnroll = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = localStorage.getItem('token');
-
-    if (!user || !token) {
-      toast.error('Please log in to enroll.');
-      return;
-    }
-
-    // Navigate to payment page with course ID
-    navigate(`/payment/${id}`);
-  };
-
-  if (!course) return <p>Loading...</p>;
+  if (!course) return <CourseLoader />;
 
   const videoUrl = course.video_url;
   const isValidYouTube = isYouTubeUrl(videoUrl);
@@ -111,26 +132,32 @@ const Course = () => {
         </div>
 
         <div className="course-video-box">
-          {isValidYouTube && embedUrl ? (
-            <iframe
-              width="100%"
-              height="200"
-              src={embedUrl}
-              title="Course Preview"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : videoUrl && !isValidYouTube ? (
-            <div className="video-unavailable">
-              <p>Video preview is not available for this course.</p>
-              <a href={videoUrl} target="_blank" rel="noopener noreferrer">
-                Click here to watch on YouTube
-              </a>
-            </div>
+          {enrolled ? (
+            isValidYouTube && embedUrl ? (
+              <iframe
+                width="100%"
+                height="200"
+                src={embedUrl}
+                title="Course Preview"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : videoUrl ? (
+              <SimpleVideoPlayer videoUrl={videoUrl} />
+            ) : (
+              <div className="video-unavailable">
+                <p>No video preview available for this course.</p>
+              </div>
+            )
           ) : (
-            <SimpleVideoPlayer videoUrl={videoUrl} />
+            <div className="video-lock-message">
+              <p style={{ color: 'red', fontWeight: 'bold' }}>
+                🔒 Enroll to view this course in your personal space.
+              </p>
+            </div>
           )}
+
 
           <div className="course-price-box">
             <p className="price">

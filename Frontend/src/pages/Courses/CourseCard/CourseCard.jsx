@@ -16,11 +16,11 @@ const CourseCard = ({ course }) => {
   };
 
   return (
-    <div className="course-card">
+    <div className="cours-card">
       <h3>{course.course_title}</h3>
       <p className="description">{course.description}</p>
 
-      <div className="course-meta">
+      <div className="cours-meta">
         <p><strong>Subject:</strong> {course.subject_area}</p>
         <p><strong>Instructor:</strong> {course.instructor_name}</p>
         <p><strong>Target Audience:</strong> {course.target_audience}</p>

@@ -1,0 +1,77 @@
+.skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.title-skeleton {
+  width: 60%;
+  height: 28px;
+}
+
+.subtitle-skeleton {
+  width: 80%;
+  height: 18px;
+}
+
+.tag-skeleton {
+  width: 100px;
+  height: 18px;
+}
+
+.text-line {
+  height: 14px;
+  width: 90%;
+}
+
+.text-line.short {
+  width: 40%;
+}
+
+.stats-skeleton {
+  height: 16px;
+  width: 70%;
+}
+
+.video-skeleton {
+  width: 100%;
+  height: 200px;
+}
+
+.price-skeleton,
+.offer-skeleton,
+.enroll-btn-skeleton,
+.review-title-skeleton,
+.input-skeleton,
+.textarea-skeleton,
+.submit-btn-skeleton {
+  height: 18px;
+  width: 60%;
+  margin-bottom: 12px;
+}
+
+.input-skeleton {
+  width: 100px;
+  height: 35px;
+}
+
+.textarea-skeleton {
+  width: 90%;
+  height: 80px;
+}
+
+.submit-btn-skeleton {
+  width: 120px;
+  height: 35px;
+}

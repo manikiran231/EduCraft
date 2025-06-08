@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // ✅ React Icons
 import './login.css';
 
-const Login = () => {
+const Login = () => { 
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false); // 👈 New state
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +25,7 @@ const Login = () => {
       }
       window.location.href = "/";
     } catch (err) {
-      toast.error(err.response?.data?.msg || "Login failed");
+      toast.error(err.response?.data?.msg || "Login Failed, Please try again.");
     }
   };
 
@@ -54,29 +55,29 @@ const Login = () => {
               placeholder="Enter your password"
               onChange={handleChange}
               required
-              style={{ paddingRight: '30px' }}
+              style={{ paddingRight: '35px' }}
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
               style={{
                 position: 'absolute',
                 right: 8,
-                top: '40%',
+                top: '35%',
                 transform: 'translateY(-50%)',
                 cursor: 'pointer',
-                userSelect: 'none',
-                fontSize: '18px',
-                color: '#555'
+                fontSize: '20px',
+                color: '#555',
+                paddingRight:'10px'
               }}
               title={showPassword ? "Hide Password" : "Show Password"}
             >
-              {showPassword ? '🙈' : '👁️'}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
 
-          <div className="extra-options" style={{ display: 'flex',flexDirection:"row",justifyContent:'center', alignItems: 'center', margin: '10px' }}>
+          <div className="extra-options" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px' }}>
             Forgot Password..? 
-            <a href="/forgot-password" className="forgot-password-link text-blue-400 " style={{marginLeft:"10px"}}>Click Here</a>
+            <a href="/forgot-password" className="forgot-password-link" style={{ marginLeft: "10px", color: "#1e90ff" }}>Click Here</a>
           </div>
 
           <button type="submit">Login</button>

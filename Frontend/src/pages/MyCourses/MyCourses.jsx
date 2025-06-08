@@ -54,10 +54,16 @@ const MyCourses = () => {
 
   if (loading) {
     return (
-      <div className="course-grid">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <LoadingCard key={i} />
-        ))}
+      <div className="container">
+        <h2 className="title">My Enrolled Courses</h2>
+        <p className="description">
+          These are the courses you're currently enrolled in. Continue learning at your own pace!
+        </p>
+        <div className="course-grid">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <LoadingCard key={i} />
+          ))}
+        </div>
       </div>
     );
   }

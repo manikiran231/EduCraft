@@ -12,7 +12,8 @@ const courseSchema = new mongoose.Schema({
   start_date: Date,
   end_date: Date,
   instructor_name: String,
-  video_url: String
+  video_url: String,
+  price:Number,
 });
 
 module.exports = mongoose.model('Course', courseSchema);

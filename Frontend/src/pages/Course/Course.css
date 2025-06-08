@@ -311,3 +311,10 @@
     opacity: 1;
     cursor: default;
 }
+.video-lock-message {
+  padding: 20px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  text-align: center;
+}

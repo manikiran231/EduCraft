@@ -31,7 +31,7 @@ const CourseCard = ({ course }) => {
         <span>🔥 Popularity: {course.popularity_score}%</span>
       </div>
 
-      <button className="details-btn" onClick={handleMoreDetails}>More Details</button>
+      <button className="details-btn" onClick={handleMoreDetails}> Continue</button>
     </div>
   );
 };

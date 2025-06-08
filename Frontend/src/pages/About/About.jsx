@@ -6,7 +6,7 @@ function About() {
         <>
             <section className="about">
                 <h2>About Us</h2>
-                <p>At EduCraft, we believe in making learning fun, interactive, and accessible for every child. Our mission is
+                <p>At EduCraft, we belie    ve in making learning fun, interactive, and accessible for every child. Our mission is
                     to inspire a lifelong love of learning by combining innovative educational techniques with creativity and
                     play.</p>
             </section>
