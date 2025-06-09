@@ -30,14 +30,14 @@ const RegCourse = () => {
       try {
         const token = localStorage.getItem('token');
 
-        const courseRes = await fetch(`http://localhost:5000/api/courses/${courseId}`, {
+        const courseRes = await fetch(`https://educraft-backend-ax1v.onrender.com/api/courses/${courseId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!courseRes.ok) throw new Error('Failed to load course');
         const courseData = await courseRes.json();
         setCourse(courseData);
 
-        const profileRes = await fetch(`http://localhost:5000/api/auth/profile`, {
+        const profileRes = await fetch(`https://educraft-backend-ax1v.onrender.com/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (profileRes.ok) {
@@ -69,7 +69,7 @@ const RegCourse = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/auth/progress/update`, {
+      const res = await fetch(`https://educraft-backend-ax1v.onrender.com/api/auth/progress/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

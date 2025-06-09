@@ -16,7 +16,7 @@ function Forgot() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      const response = await axios.post('https://educraft-backend-ax1v.onrender.com/api/auth/forgot-password', { email });
       setMessage(response.data.message || 'Check your email for reset instructions.');
       toast.success("OTP sent to your email!");
       setError('');

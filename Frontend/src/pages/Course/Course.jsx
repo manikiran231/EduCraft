@@ -34,7 +34,7 @@ const Course = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/courses/${id}`);
+        const res = await fetch(`https://educraft-backend-ax1v.onrender.com/api/courses/${id}`);
         if (!res.ok) throw new Error('Failed to fetch course');
         const data = await res.json();
         setCourse(data);
@@ -59,7 +59,7 @@ const Course = () => {
       if (!token) return;
 
       try {
-        const res = await fetch(`http://localhost:5000/api/enrollments/is-enrolled/${id}`, {
+        const res = await fetch(`https://educraft-backend-ax1v.onrender.com/api/enrollments/is-enrolled/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

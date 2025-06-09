@@ -17,7 +17,7 @@ import {
 } from "recharts";
 import "./Profile.css";
 
-const API_BASE_URL = "http://localhost:5000/api/auth";
+const API_BASE_URL = "https://educraft-backend-ax1v.onrender.com/api/auth";
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#a28eff", "#ff6f91"];
 
 const averageProgress = (progressArray) => {
