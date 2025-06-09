@@ -45,7 +45,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const res = await axios.post('https://educraft-backend-ax1v.onrender.com/api/auth/register', formData);
       toast.success(res.data.msg);
       navigate("/login");
     } catch (err) {

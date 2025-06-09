@@ -21,7 +21,7 @@ const Payment = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/courses/${id}`);
+        const res = await fetch(`https://educraft-backend-ax1v.onrender.com/api/courses/${id}`);
         if (!res.ok) throw new Error('Course not found');
         const data = await res.json();
         setCourse(data);
@@ -91,7 +91,7 @@ const handleSubmit = async (e) => {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('User not authenticated');
 
-      const response = await fetch(`http://localhost:5000/api/auth/enroll/${id}`, {
+      const response = await fetch(`https://educraft-backend-ax1v.onrender.com/api/auth/enroll/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,12 @@ const cors = require('cors');
 dotenv.config();
 const app = express();
 
+//cors
+app.use(cors({
+  origin: 'https://edu-craft-three.vercel.app/',
+  credentials: true,
+}));
+
 // Middle
 app.use(express.json());
 app.use(cors());

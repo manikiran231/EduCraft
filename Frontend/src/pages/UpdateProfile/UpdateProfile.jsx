@@ -43,7 +43,7 @@ const UpdateProfile = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/details/update', formData);
+      const res = await axios.post('https://educraft-backend-ax1v.onrender.com/api/details/update', formData);
       toast.success(res.data.msg || "Profile submitted successfully!"); // ✅ Show success
       toast.info("This feature is under development. Please check back later."); // ✅ Additional message
     } catch (err) {
