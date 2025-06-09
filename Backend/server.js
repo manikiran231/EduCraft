@@ -8,7 +8,7 @@ const app = express();
 
 //cors
 app.use(cors({
-  origin: 'https://edu-craft-three.vercel.app/',
+  origin: 'https://edu-craft-three.vercel.app',
   credentials: true,
 }));
 
