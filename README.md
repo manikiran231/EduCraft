@@ -1,29 +1,47 @@
-# EduCraft 🎓✨
+# ✍️ EduCraft – Creative Learning Platform for Students and Parents
 
-**EduCraft** is an educational portal designed to make learning fun, interactive, and creative for children.  
-Built with a modern stack: **React.js**, **Express.js**, **MongoDB**, and **EmailJS** for seamless functionality.
+**EduCraft** is a full-stack educational platform crafted to transform the way children learn by making it **fun, interactive, and deeply personalized**. More than just a portal, EduCraft empowers both **students and parents** with a focused, ad-free environment for skill-based growth and academic enrichment.
+
+Unlike generic learning platforms or YouTube suggestions that often distract, **EduCraft delivers curated, career-oriented content** designed to **nurture creativity, critical thinking, and long-term success**. Parents can explore **specialized programs** tailored for their child’s learning style and goals — while students enjoy engaging courses, live classes, visual progress tracking, and guided paths to explore future-ready skills.
+
+With an intuitive interface, secure authentication, embedded video lessons, and integrated dashboards — EduCraft is more than a tool. It's a **guided learning experience**, built to help children stay on track, dream big, and thrive in the digital age.
+
 
 ---
 
-## 📚 Features
+## ✨ Features
 
-- **Home Page:** Welcome users with highlights of services and mission.
-- **About Page:** Share EduCraft's vision, goals, and core values.
-- **Courses Page:** Browse interactive lessons, games, creative projects, and live classes.
-- **Contact Us:** Send inquiries and feedback using EmailJS integration.
-- **User Authentication:** Sign up and log in securely with MongoDB backend.
-- **User Dashboard:** Track progress, set learning goals, and view earned badges.
+- 🎓 **Interactive Courses** – Lessons, games, creative projects, and live classes  
+- 🔐 **User Authentication** – Secure signup and login using **JWT** and MongoDB  
+- 📊 **Progress Visualization** – Track performance with interactive charts using **Recharts**  
+- 🎥 **Video Embedding** – Seamless learning experience with **Video.js** integration  
+- 🧑‍🎓 **Personal Dashboard** – View progress, goals, and earned badges  
+- 📬 **Contact Form** – Communicate with the team via **EmailJS**  
+- 📁 **File Uploads** – Upload profile images or assignments with **Multer**  
+- 🌐 **Fully Responsive** – Optimized for all device types  
 
 ---
 
 ## 🛠 Tech Stack
 
-| Frontend     | Backend     | Database        | Other     |
-|--------------|-------------|------------------|-----------|
-| React.js     | Express.js  | MongoDB (Atlas)  | EmailJS   |
-| CSS3         | Node.js     | Mongoose         | Axios     |
+| Layer        | Technologies Used                          |
+| ------------ | ------------------------------------------ |
+| 🖥️ Frontend | React.js, Tailwind CSS, Vite, React Router |
+| 🔙 Backend   | Node.js, Express.js                        |
+| 🗄️ Database | MongoDB Atlas, Mongoose                    |
+| 🔐 Auth      | JWT, Bcrypt                                |
+| 📤 Uploads   | Multer                                     |
+| 📧 Contact   | EmailJS                                    |
+| 📊 Charts    | **Recharts**                               |
+| 🎥 Videos    | **Video.js** for video embedding           |
+| ⚙️ Dev Tools | Nodemon, dotenv, CORS                      |
+
 
 ---
+
+## 🔗 Live Link
+
+- 🌐 **EduCraft**: [https://edu-craft-three.vercel.app](https://edu-craft-three.vercel.app)  
 
 
 ---
@@ -52,6 +70,7 @@ cd server
 npm install
 npm run dev
 ```
+Configure .env amd then
 Runs on: http://localhost:5000
 ### 🧑‍💻 Contributing
 Pull Requests are welcome!
