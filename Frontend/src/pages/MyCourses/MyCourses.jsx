@@ -21,7 +21,7 @@ const MyCourses = () => {
           return;
         }
 
-        const res = await fetch('/api/auth/enrollments', {
+        const res = await fetch('https://educraft-backend-ax1v.onrender.com/api/auth/enrollments', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
